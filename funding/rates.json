@@ -1,0 +1,15 @@
+{
+  "updated": "2026-10-28",
+  "note": "Rates to 1 unit of the quoted currency. Maintained by hand on purpose: a verdict must not change between two runs because a live API moved. Refresh these before any funding decision you act on.",
+  "rates": {
+    "EUR_USD": 1.08,
+    "GBP_USD": 1.27,
+    "USD_EUR": 0.93,
+    "GBP_EUR": 1.18,
+    "CAD_USD": 0.73,
+    "AUD_USD": 0.66,
+    "SEK_USD": 0.095,
+    "NGN_USD": 0.00062,
+    "USD_NGN": 1610.0
+  }
+}

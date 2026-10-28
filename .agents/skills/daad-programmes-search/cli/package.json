@@ -1,0 +1,18 @@
+{
+  "name": "daad-programmes-cli",
+  "version": "1.0.0",
+  "description": "CLI for the DAAD International Programmes database - master's and doctoral study in Germany",
+  "type": "module",
+  "main": "src/cli.ts",
+  "bin": { "daad-programmes": "src/cli.ts" },
+  "scripts": {
+    "start": "bun run src/cli.ts",
+    "test": "bun test --timeout 30000",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/bun": "1.3.14",
+    "typescript": "^5.4.0"
+  }
+}

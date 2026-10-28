@@ -1,0 +1,185 @@
+%% Academic CV - master template
+%%
+%% Compile with: lualatex main_example.tex
+%% (pdflatex often fails on modern MiKTeX with fontawesome5 font-expansion errors.)
+%%
+%% This is the MASTER copy: everything the applicant can truthfully claim.
+%% /apply never edits this file - it copies it to cv/main_<key>.tex and cuts
+%% the copy down to two pages for one programme. An academic CV foregrounds
+%% education, research and output; the industry record supports them.
+
+\documentclass[11pt,a4paper,sans]{moderncv}
+\moderncvstyle{banking}
+\moderncvcolor{blue}
+
+% Calibri-only house style (Carlito = metric-compatible Calibri clone; swap
+% the name to Calibri where the real font is installed).
+\usepackage{fontspec}
+\setmainfont{Carlito}
+\setsansfont{Carlito}
+\linespread{1.05}
+
+% Force the name and section headings to render in moderncv blue (color1).
+% Default banking leaves them black: moderncvstylebanking.sty's \colorlet
+% copies (not aliases) the pre-scheme accent colour, so the name colours are
+% frozen before \moderncvcolor runs. Re-let them after. \namefont is the hook
+% every name-style macro routes through, so this also works on moderncv 2.3.1
+% (Debian/Ubuntu apt), which has no \firstnamestyle/\lastnamestyle at all.
+\renewcommand*{\namefont}{\fontsize{32}{34}\bfseries\upshape}
+\colorlet{firstnamecolor}{color1}
+\colorlet{lastnamecolor}{color1}
+\colorlet{namecolor}{color1}
+\renewcommand*{\sectionstyle}[1]{{\sectionfont\color{color1}#1}}
+
+\usepackage[utf8]{inputenc}
+% pdflatex fallback only (the documented engine is lualatex, which skips this
+% branch). Without T1 font encoding pdflatex builds accented letters with
+% \accent, and the PDF text layer stores them decomposed - so a parser reading
+% the extracted text sees "Wu\"rzburg" rather than "Würzburg" while the page
+% looks right. moderncv 2.5 loads T1 itself under pdflatex; 2.3.1 does not.
+\ifpdftex\usepackage[T1]{fontenc}\fi
+
+% moderncv loads hyperref itself in an \AtEndPreamble hook, so \hypersetup
+% must go in an \AtEndPreamble of our own: on moderncv < 2.4 a top-level
+% \usepackage{hyperref} clashes with the class's own
+% \RequirePackage[unicode]{hyperref}.
+%
+% pdftitle is not cosmetic here: Poppler 26.0x before 26.05 aborts
+% `pdftotext -bbox` on a PDF whose Info dictionary carries an empty string in
+% any field, which hyperref writes for every field it does not set - and that
+% is exactly what tools/verify_layout.py needs to read.
+\AtEndPreamble{\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+    pdftitle={Daniel Oloruntoba - Academic CV},
+    pdfauthor={Daniel Oloruntoba},
+    pdfsubject={Academic curriculum vitae},
+    % Keep pdfpagemode=UseNone: this block runs after moderncv's own
+    % \AtEndPreamble, so a FullScreen value here would win and open the CV in
+    % fullscreen presentation mode.
+    pdfpagemode=UseNone,
+}}
+\usepackage[scale=0.80]{geometry}
+\usepackage{needspace}
+
+% personal data
+% A literal space inside the last-name argument. moderncv's banking title
+% separates the two names with a kern, which renders correctly but is dropped
+% by every text extractor - the PDF's text layer read "DanielOloruntoba", so
+% a form parser or a reviewer searching the file for the surname found
+% nothing. The space costs nothing visually and makes the name extractable.
+\name{Daniel}{\,Oloruntoba}
+\address{Abuja, FCT}{Nigeria}{}
+\phone[mobile]{+234 907 723 4932}
+\email{iamdanieltoba@gmail.com}
+\social[linkedin]{danieloloruntoba}
+\social[github]{Daniel-16}
+\homepage{danieltoba.vercel.app}
+
+\begin{document}
+\makecvtitle
+\vspace*{-8mm}
+
+%% ---------------------------------------------------------------------------
+%% Research interests come first on an academic CV. A recruiter reads a
+%% profile summary; an admissions committee reads what you want to work on.
+%% Tailor these three lines to the programme - they are the first thing read.
+%% ---------------------------------------------------------------------------
+\section{Research Interests}
+\cvitem{}{Natural-language control of physical and digital systems, with
+deterministic safety layers between a language model and the actuator it
+drives. Specifically: grounded language for robot task planning, runtime
+verification of model-generated plans, and the evaluation of agents that act
+irreversibly on the world.}
+
+\section{Education}
+\needspace{5\baselineskip}
+\cventry{2022--2026}{B.Sc. Computer Science}{Bingham University}{Karu, Nigeria}{Second Class Upper Division (2:1)}{
+\begin{itemize}
+\item Thesis: \emph{Design and Implementation of an Autonomous Natural-Language Driven Aerial Surveillance System for Crowd Analytics and Anomaly Detection Using ROS~2 and Computer Vision}
+\item Built an LLM task planner for an autonomous aerial platform with a deterministic validation layer between generated plans and the flight controller
+\item Relevant coursework: algorithms and data structures, operating systems, computer vision, artificial intelligence, software engineering
+\end{itemize}}
+
+\section{Research Experience and Projects}
+\needspace{5\baselineskip}
+\cventry{2025--2026}{AutoBee --- LLM-Driven Autonomous Aerial Surveillance}{B.Sc. thesis project}{}{ROS~2, Python, C++, DJI Tello}{
+\begin{itemize}
+\item Natural-language mission specification translated to a validated ROS~2 action sequence; unsafe or unreachable plans rejected before execution rather than aborted mid-flight
+\item Computer-vision pipeline for crowd density estimation and anomaly detection
+\item Deterministic safety layer: the contribution, and the part that generalises beyond drones
+\end{itemize}}
+
+\needspace{5\baselineskip}
+\cventry{2024--2026}{Alris --- Open-Source AI Browser Automation Agent}{Independent}{}{Next.js, FastAPI, Playwright, LangChain, MCP}{
+\begin{itemize}
+\item Agent that drives a real browser through a constrained action interface; Apache~2.0, 267 commits
+\item The same planner/verifier separation as AutoBee, applied to a software actuator
+\end{itemize}}
+
+\section{Professional Experience}
+\needspace{5\baselineskip}
+\cventry{Dec 2024--Jul 2026}{Senior Software Engineer}{MathWallet}{Singapore (remote)}{}{
+\begin{itemize}
+\item Engineered a multi-chain wallet CLI through which AI agents execute cross-chain transactions programmatically --- an agent acting irreversibly, with the verification problem that implies
+\item Layer-2 infrastructure in Rust/Substrate and EVM-compatible smart contracts for a wallet serving 2M+ users
+\item Unified EVM, Solana and Bitcoin access under a single mnemonic; led full-stack Substrate web wallet development
+\end{itemize}}
+
+\needspace{5\baselineskip}
+\cventry{Jul 2024--Dec 2024}{Principal Developer}{KooponCraft}{Remote}{}{
+\begin{itemize}
+\item REST APIs handling 10,000+ daily transactions; production backend serving 2,000+ users
+\item Gamification engine that raised user retention by 40\%
+\end{itemize}}
+
+\needspace{5\baselineskip}
+\cventry{Aug 2022--Feb 2023}{Founding Engineer and Tech Lead}{Planetbase}{Remote}{}{
+\begin{itemize}
+\item Took the product from concept to a Y Combinator pitch (USD 50K pre-seed interest); led a five-person distributed team
+\item Machine-learning sponsor-matching algorithm, +60\% match compatibility
+\end{itemize}}
+
+\needspace{4\baselineskip}
+\cventry{Sep 2021--Dec 2021}{Software Developer (internship)}{Trofira}{Jos, Nigeria}{}{
+\begin{itemize}
+\item Food-delivery platform; cut order processing time by 30\% and API response times by 20\%
+\end{itemize}}
+
+\needspace{4\baselineskip}
+\cventry{Feb 2020--Aug 2021}{Software Developer (part-time)}{Blue Algorithm Tech Ltd}{Jos, Nigeria}{}{
+\begin{itemize}
+\item Payment integrations in Node.js/Express; 76\% faster page load; mentored junior developers
+\end{itemize}}
+
+\section{Additional Projects}
+\cvitem{SpendPilot}{AI personal-finance analyser; categorisation and spending-pattern analysis over transaction data.}
+\cvitem{AI Learn}{Adaptive learning platform built on a large language model (React, Node.js, Gemini Pro); generates and re-sequences material from a learner's performance.}
+
+\section{Technical Skills}
+\cvitem{Languages}{Python, TypeScript/JavaScript, Rust, C++, Java, Solidity, Dart}
+\cvitem{AI and ML}{LLM agents and tool use (LangChain, MCP, Anthropic Claude, OpenAI, Gemini, Hugging Face), computer vision, prompt and evaluation design}
+\cvitem{Robotics}{ROS~2, autonomous aerial platforms, sensor pipelines, safety and validation layers}
+\cvitem{Systems}{Node.js/Express, FastAPI, REST, GraphQL, PostgreSQL, MongoDB, RabbitMQ, WebSockets}
+\cvitem{Infrastructure}{AWS, GCP, Docker, GitHub Actions CI/CD, Git, Linux; Claude Code for AI-assisted development}
+
+\section{Awards and Leadership}
+\cvitem{2026}{TEDx Speaker, TEDx Bingham University}
+\cvitem{2023}{Hackathon Champion, 1st of 10 teams, NACOS Bingham Hackathon}
+\cvitem{2023--2025}{President (two terms), Nigeria Association of Computing Students, Bingham Chapter}
+\cvitem{2024--2025}{Founder, Women in Tech and NACOS Launchpad; Google Developer Groups on Campus facilitator}
+\cvitem{2023}{Y Combinator Startup School (S23)}
+
+\section{Publications}
+\cvitem{}{None to date. Thesis manuscript in preparation.}
+
+\section{Teaching, Outreach and Service}
+\cvitem{2024--2025}{Facilitator, Google Developer Groups on Campus --- ran sessions on web development and applied machine learning.}
+\cvitem{2023--2025}{Mentored junior developers in industry and student members through NACOS Launchpad.}
+
+\section{References}
+\cvitem{}{Available on request.}
+
+\end{document}

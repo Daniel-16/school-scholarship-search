@@ -1,0 +1,81 @@
+%% Statement of Purpose - worked example and master reference.
+%%
+%% Compile with: xelatex sop_example.tex
+%%
+%% /apply never edits this file. It copies the structure into
+%% statements/sop_<key>.tex and rewrites the content for one programme.
+%%
+%% Read 06-statement-templates.md for what each paragraph is doing and why.
+%% Read 03-writing-style.md before changing a word of the prose.
+
+\documentclass[12pt,single]{statement}
+
+\applicant{Daniel Oloruntoba}
+\programme{MSc Artificial Intelligence --- University of Example}
+\statementkind{Statement of Purpose}
+\wordlimit{1000 words}
+
+\begin{document}
+\statementtitle
+
+% --- 1. The hook: a specific technical problem, stated as a problem. -------
+% Not "I have always been passionate about AI". The first sentence has to be
+% one only this applicant could write.
+In the drone system I built for my undergraduate thesis, the language model
+was never the hard part. Translating ``survey the eastern perimeter and flag
+anything unusual'' into a flight plan took a weekend. What took the rest of
+the year was the layer underneath it: a deterministic validator that sat
+between the generated plan and the flight controller and refused any command
+that left the geofence, exceeded the battery envelope, or could not be
+reversed. The model proposed; something that could not hallucinate decided.
+
+% --- 2. What was actually built, and what it showed. ----------------------
+% Evidence immediately after the claim. A committee member outside the
+% subfield must be able to follow this paragraph.
+That system, AutoBee, ran on ROS~2 against a physical aircraft, with a
+computer-vision pipeline for crowd density estimation feeding its anomaly
+detection. It worked, within limits I can state precisely: the validator
+rejected unsafe plans reliably, but it could only check properties I had
+thought to encode, and I had no principled way to know what I had missed.
+That gap --- between a safety layer that is correct and one that is complete
+--- is the reason I am applying for this programme rather than taking
+another engineering role.
+
+% --- 3. Why this is not a sudden interest: the thread through the record. --
+I have since met the same problem twice more in production. At MathWallet I
+built a command-line interface through which autonomous agents execute
+cross-chain transactions for a wallet serving over two million users, where
+the actuator is an irreversible financial transfer and the cost of an
+unchecked plan is somebody's money. In Alris, an open-source browser agent I
+maintain, I constrained the action interface itself so that the space of
+things the model can do is small enough to reason about. Three systems, three
+actuators --- a rotor, a ledger, a browser --- and one unsolved question
+about how to bound what a language model is permitted to cause.
+
+% --- 4. Why THIS programme. Named people, named work. ---------------------
+% The paragraph that most applications get wrong. Name a group, a method or
+% a module and say what you would do with it. Never the ranking.
+[Programme-specific paragraph. Name one or two faculty members and the
+specific work of theirs that connects --- not their general area --- and say
+what you would want to do with it. Name the modules or research facilities
+that bear on the problem above. If the department has a group working on
+verification of learned policies, formal methods for autonomy, or agent
+evaluation, that is the paragraph's anchor.]
+
+% --- 5. What comes after. Concrete, and consistent with the funder. -------
+% For a development-focused scholarship this paragraph carries real weight
+% and must address return and impact explicitly.
+After the MSc I intend to continue to a doctorate on runtime verification for
+language-model agents, and then to work on these systems where they are
+actually going to be deployed. Autonomous aerial survey is not a hypothetical
+application in Nigeria --- it is already being used for pipeline inspection
+and agricultural monitoring --- and it is being deployed by teams who have no
+verification layer at all. I would rather be one of the people who builds
+that layer than one of the people who writes about why it was missing.
+
+% --- 6. The close: short, and not a summary. ------------------------------
+I am not applying because I want to learn to build these systems. I have
+built three. I am applying because I have reached the edge of what I can work
+out on my own, and this is where the people who have gone further are.
+
+\end{document}
